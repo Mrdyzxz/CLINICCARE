@@ -1,0 +1,475 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --navy: #102d3b;
+    --teal: #13a89e;
+    --text: #71838d;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f5f9fa;
+    color: var(--navy);
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* MAIN LAYOUT */
+
+.signup-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+}
+
+/* BRAND SECTION */
+
+.brand-section {
+    background: linear-gradient(145deg, #103744, #126b6b);
+    color: white;
+    padding: 45px 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-section::before,
+.brand-section::after {
+    content: "";
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.brand-section::before {
+    width: 500px;
+    height: 500px;
+    right: -200px;
+    top: 10%;
+}
+
+.brand-section::after {
+    width: 350px;
+    height: 350px;
+    right: -100px;
+    top: 23%;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    color: white;
+    font-family: 'Manrope', sans-serif;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    width: fit-content;
+    position: relative;
+    z-index: 2;
+}
+
+.logo-icon {
+    width: 38px;
+    height: 38px;
+    background: var(--teal);
+    color: white;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.accent {
+    color: #61d8c7;
+}
+
+.brand-content {
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+    animation: fadeUp 0.8s ease;
+}
+
+.brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    color: #b8e6df;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    margin-bottom: 30px;
+}
+
+.badge-dot {
+    width: 7px;
+    height: 7px;
+    background: #61d8c7;
+    border-radius: 50%;
+}
+
+.brand-content h1 {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(40px, 4.5vw, 58px);
+    line-height: 1.2;
+    letter-spacing: -2.5px;
+    margin-bottom: 22px;
+}
+
+.brand-content h1 span {
+    color: #61d8c7;
+}
+
+.brand-content > p {
+    color: #c0d7d9;
+    font-size: 14px;
+    line-height: 1.9;
+    max-width: 410px;
+}
+
+.brand-decoration {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 55px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.decoration-icon {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    color: #61d8c7;
+    font-size: 25px;
+}
+
+.brand-decoration strong,
+.brand-decoration small {
+    display: block;
+}
+
+.brand-decoration strong {
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.brand-decoration small {
+    color: #b5d0d2;
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+.brand-footer {
+    color: #a9c7ca;
+    font-size: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+/* FORM SECTION */
+
+.form-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 45px 8%;
+    background: white;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 430px;
+    animation: fadeUp 0.8s ease;
+}
+
+.back-link {
+    color: #82939b;
+    font-size: 12px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.back-link:hover {
+    color: var(--teal);
+}
+
+.form-heading {
+    margin-top: 30px;
+    margin-bottom: 25px;
+}
+
+.mobile-logo {
+    display: none;
+}
+
+.form-tag {
+    color: var(--teal);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.form-heading h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 29px;
+    letter-spacing: -1px;
+    margin-bottom: 9px;
+}
+
+.form-heading > p:last-child {
+    color: #82939b;
+    font-size: 13px;
+}
+
+/* INPUTS */
+
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    height: 47px;
+    padding: 0 14px;
+    border: 1px solid #e2eaec;
+    border-radius: 9px;
+    outline: none;
+    font-size: 12px;
+    font-family: inherit;
+    color: var(--navy);
+    background: #fbfdfd;
+    transition: 0.3s;
+}
+
+.input-group input::placeholder {
+    color: #aab6bb;
+}
+
+.input-group input:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 4px rgba(19, 168, 158, 0.09);
+    background: white;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 65px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: var(--teal);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* TERMS */
+
+.terms-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin: 8px 0 22px;
+    color: #71838d;
+    font-size: 11px;
+    line-height: 1.6;
+    cursor: pointer;
+}
+
+.terms-option input {
+    margin-top: 2px;
+    accent-color: var(--teal);
+}
+
+.terms-option a {
+    color: var(--teal);
+    font-weight: 700;
+}
+
+/* SIGNUP BUTTON */
+
+.signup-submit {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 9px;
+    background: var(--teal);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    box-shadow: 0 9px 22px rgba(19, 168, 158, 0.19);
+    transition: 0.3s;
+}
+
+.signup-submit:hover {
+    background: #0e8d84;
+    transform: translateY(-2px);
+}
+
+.signup-submit span {
+    font-size: 17px;
+}
+
+.signup-message {
+    font-size: 12px;
+    margin-top: 12px;
+    text-align: center;
+    min-height: 16px;
+}
+
+/* LOGIN LINK */
+
+.login-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+}
+
+.login-link p {
+    color: #82939b;
+    font-size: 12px;
+}
+
+.login-link a {
+    color: var(--teal);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* SECURITY NOTE */
+
+.security-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+    padding-top: 18px;
+    border-top: 1px solid #edf1f2;
+}
+
+.security-note span {
+    color: var(--teal);
+    font-size: 19px;
+}
+
+.security-note p {
+    color: #95a3a9;
+    font-size: 10px;
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .signup-page {
+        grid-template-columns: 0.85fr 1.15fr;
+    }
+
+    .brand-section {
+        padding: 35px 8%;
+    }
+
+    .form-section {
+        padding: 35px 6%;
+    }
+
+    .brand-content h1 {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 650px) {
+    .signup-page {
+        grid-template-columns: 1fr;
+    }
+
+    .brand-section {
+        display: none;
+    }
+
+    .form-section {
+        min-height: 100vh;
+        padding: 30px 7%;
+    }
+
+    .form-heading {
+        margin-top: 25px;
+    }
+
+    .mobile-logo {
+        display: block;
+        margin-bottom: 25px;
+    }
+
+    .form-heading h2 {
+        font-size: 26px;
+    }
+}

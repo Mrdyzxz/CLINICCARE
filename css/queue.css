@@ -1,0 +1,243 @@
+@import url("./patients.css");
+
+.page-heading h1 {
+    font-family: 'Manrope', sans-serif;
+}
+
+.queue-stats {
+    margin-bottom: 23px;
+}
+
+.queue-stats .stat-card {
+    padding: 19px;
+}
+
+.queue-stats .stat-card p {
+    color: #84959e;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.queue-stats .stat-card h2 {
+    color: var(--navy);
+    font-family: 'Manrope', sans-serif;
+    font-size: 28px;
+    margin: 9px 0 5px;
+}
+
+.queue-stats .stat-card > span {
+    color: #a0adb3;
+    font-size: 10px;
+}
+
+.queue-panel {
+    padding: 23px;
+}
+
+.queue-panel .panel-header h2 {
+    color: var(--navy);
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.call-next-btn {
+    padding: 11px 16px;
+    border-radius: 8px;
+    background: linear-gradient(100deg, #16aaa0, #0e918a);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.secondary-btn {
+    padding: 11px 18px;
+    border-radius: 8px;
+    background: #edf1f6;
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.modal-overlay#queueModal {
+    z-index: 1000;
+}
+
+#queueModal .modal {
+    max-width: 480px;
+}
+
+#queueModal .form-group {
+    margin-bottom: 17px;
+}
+
+.queue-toolbar input {
+    flex: 1;
+    min-width: 160px;
+    height: 42px;
+    padding: 0 13px;
+    border: 1px solid #e4ecef;
+    border-radius: 8px;
+    outline: none;
+    color: var(--text);
+    font-size: 11px;
+}
+
+.queue-toolbar select {
+    min-width: 165px;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid #e4ecef;
+    border-radius: 8px;
+    outline: none;
+    background: #fff;
+    color: #637982;
+    font-size: 11px;
+}
+
+.queue-toolbar input:focus,
+.queue-toolbar select:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(19, 168, 158, 0.08);
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-container table {
+    min-width: 950px;
+}
+
+.table-container td {
+    white-space: nowrap;
+}
+
+.queue-number {
+    color: var(--teal-dark);
+    font-weight: 700;
+}
+
+.patient-name {
+    color: var(--navy);
+    font-weight: 700;
+}
+
+.status-badge,
+.priority-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.status-waiting {
+    background: #fff5df;
+    color: #b27b13;
+}
+
+.status-in-consultation {
+    background: #e5f1ff;
+    color: #3475bd;
+}
+
+.status-completed {
+    background: #e3f7ed;
+    color: #218454;
+}
+
+.status-skipped {
+    background: #ffebeb;
+    color: #c34b4b;
+}
+
+.priority-normal {
+    background: #eef2f7;
+    color: #66758a;
+}
+
+.priority-high {
+    background: #ffebeb;
+    color: #c34b4b;
+}
+
+.queue-panel .action-btn {
+    margin-right: 4px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    background: #edf7f7;
+    color: var(--teal-dark);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.queue-panel .action-btn:hover {
+    background: #d9eeee;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 35px 15px;
+    color: var(--muted);
+}
+
+.empty-state h3 {
+    color: var(--navy);
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+
+.empty-state p {
+    font-size: 11px;
+}
+
+.close-btn {
+    background: transparent;
+    color: var(--muted);
+    font-size: 25px;
+}
+
+.queue-feedback {
+    margin: 0 0 18px;
+    padding: 11px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+@media (max-width: 950px) {
+    .queue-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .queue-toolbar {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 600px) {
+    .queue-panel {
+        padding: 17px;
+    }
+
+    .queue-panel .panel-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .call-next-btn {
+        width: 100%;
+    }
+
+    .queue-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .queue-toolbar input,
+    .queue-toolbar select {
+        width: 100%;
+    }
+}

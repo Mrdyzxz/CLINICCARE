@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Receptionist Registration | ClinicCare</title>
+
+    <link rel="stylesheet" href="css/signup.css">
+</head>
+<body>
+
+    <main class="signup-page">
+
+        <!-- LEFT BRAND SECTION -->
+        <section class="brand-section">
+
+            <a href="welcome.html" class="logo">
+                <span class="logo-icon">+</span>
+                <span>CLINIC<span class="accent">CARE</span></span>
+            </a>
+
+            <div class="brand-content">
+
+                <div class="brand-badge">
+                    <span class="badge-dot"></span>
+                    RECEPTIONIST REGISTRATION
+                </div>
+
+                <h1>
+                    Support your<br>
+                    clinic with<br>
+                    <span>better care.</span>
+                </h1>
+
+                <p>
+                    Create a ClinicCare Receptionist account to help manage
+                    patient records, appointments, and queues.
+                </p>
+
+                <div class="brand-decoration">
+                    <div class="decoration-icon">✚</div>
+                    <div>
+                        <strong>CLINICCARE</strong>
+                        <small>Smarter Healthcare Management</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="brand-footer">
+                © 2026 ClinicCare. All rights reserved.
+            </p>
+
+        </section>
+
+        <!-- SIGNUP FORM SECTION -->
+        <section class="form-section">
+
+            <div class="form-container">
+
+                <a href="login.html" class="back-link">
+                    ← Back to Login
+                </a>
+
+                <div class="form-heading">
+
+                    <div class="mobile-logo">
+                        <span class="logo-icon">+</span>
+                    </div>
+
+                    <p class="form-tag">RECEPTIONIST REGISTRATION</p>
+                    <h2>Create a Receptionist account</h2>
+                    <p>Register for Receptionist access. Confirm your email before signing in.</p>
+
+                </div>
+
+                <form id="signupForm">
+                    <div class="input-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="full_name" autocomplete="name" placeholder="Your full name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="tel" id="phoneNumber" name="phone" autocomplete="tel" placeholder="Your phone number" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" autocomplete="email" placeholder="name@example.com" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" minlength="8" autocomplete="new-password" required>
+                            <button type="button" class="toggle-password" data-target="password" aria-controls="password" aria-label="Show password" aria-pressed="false">Show</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="confirmPassword" name="confirm_password" minlength="8" autocomplete="new-password" required>
+                            <button type="button" class="toggle-password" data-target="confirmPassword" aria-controls="confirmPassword" aria-label="Show confirm password" aria-pressed="false">Show</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="signupSubmit" class="signup-submit">
+                        Create Account <span aria-hidden="true">→</span>
+                    </button>
+                </form>
+
+                <p id="signupMessage" class="signup-message" role="status" aria-live="polite"></p>
+
+                <div class="login-link">
+                    <p>Already have an account?</p>
+                    <a href="login.html">Sign in here</a>
+                </div>
+
+                <div class="security-note">
+                    <span>♧</span>
+                    <p>Your personal information is kept private and secure.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/signup.js"></script>
+
+</body>
+</html>

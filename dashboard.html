@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | CLINICCARE</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script>document.documentElement.style.visibility = "hidden";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <span>CLINICCARE</span>
+        </div>
+
+        <div class="menu-label">MAIN MENU</div>
+
+        <nav class="navigation">
+            <a href="dashboard.html" class="nav-link active">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="patients.html" class="nav-link">
+                <i class="fa-solid fa-users"></i>
+                <span>Patients</span>
+            </a>
+
+            <a href="appointments.html" class="nav-link">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Appointments</span>
+            </a>
+
+            <a href="queue.html" class="nav-link">
+                <i class="fa-solid fa-list-ol"></i>
+                <span>Patient Queue</span>
+            </a>
+        </nav>
+
+        <div class="menu-label management-label">MANAGEMENT</div>
+
+        <nav class="navigation">
+            <a href="doctors.html" class="nav-link">
+                <i class="fa-solid fa-user-doctor"></i>
+                <span>Doctors</span>
+            </a>
+
+            <a href="departments.html" class="nav-link">
+                <i class="fa-solid fa-hospital"></i>
+                <span>Departments</span>
+            </a>
+
+            <a href="consultations.html" class="nav-link">
+                <i class="fa-solid fa-stethoscope"></i>
+                <span>Consultations</span>
+            </a>
+
+            <a href="reports.html" class="nav-link">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports</span>
+            </a>
+
+            <a href="users.html" class="nav-link">
+                <i class="fa-solid fa-user-gear"></i>
+                <span>User Management</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card">
+                <div class="help-icon">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h4>Need Help?</h4>
+                <p>Contact support if you need assistance.</p>
+                <button type="button" class="support-btn">Get Support</button>
+            </div>
+
+            <a href="login.html" class="logout-link">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Sign Out</span>
+            </a>
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle sidebar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div>
+                    <p class="breadcrumb">Pages / Overview</p>
+                    <h2>Dashboard</h2>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+
+                <button class="icon-button" aria-label="Notifications">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile">
+                    <div class="profile-avatar">AD</div>
+                    <div class="profile-info">
+                        <strong>Administrator</strong>
+                        <span>System Admin</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down profile-arrow"></i>
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <section class="page-content">
+
+            <div class="welcome-section">
+                <div>
+                    <p class="welcome-date" id="currentDate">Loading date...</p>
+                    <h1>Good day, <span id="dashboardGreetingName">Administrator</span>! <span>👋</span></h1>
+                    <p class="welcome-description">
+                        Here's what's happening in your clinic today.
+                    </p>
+                </div>
+
+                <button class="primary-btn" id="newAppointmentBtn">
+                    <i class="fa-solid fa-plus"></i>
+                    New Appointment
+                </button>
+            </div>
+
+            <p class="dashboard-data-message" id="dashboardDataMessage" role="status" aria-live="polite" hidden></p>
+
+            <!-- STATISTICS -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon teal">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <span class="stat-tag positive">All Records</span>
+                    </div>
+                    <p>Total Patients</p>
+                    <h2 id="dashboardTotalPatients">0</h2>
+                    <span class="stat-note">
+                        Current patient records
+                    </span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <span class="stat-tag blue-tag">Today</span>
+                    </div>
+                    <p>Appointments</p>
+                    <h2 id="dashboardTodayAppointments">0</h2>
+                    <span class="stat-note">
+                        Scheduled for today
+                    </span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon purple">
+                            <i class="fa-solid fa-user-doctor"></i>
+                        </div>
+                        <span class="stat-tag purple-tag">Available</span>
+                    </div>
+                    <p>Available Doctors</p>
+                    <h2 id="dashboardAvailableDoctors">0</h2>
+                    <span class="stat-note neutral">
+                        Currently on duty
+                    </span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon orange">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <span class="stat-tag orange-tag">Waiting</span>
+                    </div>
+                    <p>Waiting Patients</p>
+                    <h2 id="dashboardWaitingPatients">0</h2>
+                    <span class="stat-note neutral">
+                        In the patient queue
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- MAIN GRID -->
+            <div class="content-grid">
+
+                <!-- APPOINTMENTS -->
+                <div class="panel appointments-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Today's Appointments</h3>
+                            <p>Overview of scheduled consultations</p>
+                        </div>
+
+                        <a href="appointments.html" class="view-link">
+                            View All <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>PATIENT</th>
+                                    <th>DOCTOR</th>
+                                    <th>DATE &amp; TIME</th>
+                                    <th>STATUS</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="dashboardAppointmentsBody"></tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <!-- QUEUE -->
+                <div class="panel queue-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Patient Queue</h3>
+                            <p>Current waiting list</p>
+                        </div>
+
+                        <a href="queue.html" class="view-link">View All</a>
+                    </div>
+
+                    <div class="queue-summary">
+                        <div>
+                            <span>Now Serving</span>
+                            <h2 id="dashboardNowServing">—</h2>
+                        </div>
+                        <div class="serving-icon">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                    </div>
+
+                    <div class="queue-list" id="dashboardQueueList"></div>
+
+                    <a href="queue.html" class="queue-button">
+                        Manage Patient Queue
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- BOTTOM GRID -->
+            <div class="bottom-grid">
+
+                <div class="panel activity-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Recent Activities</h3>
+                            <p>Latest updates from your clinic</p>
+                        </div>
+                    </div>
+
+                    <div class="activity-list" id="dashboardActivityList"></div>
+                </div>
+
+                <div class="panel doctors-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Available Doctors</h3>
+                            <p>Medical staff on duty</p>
+                        </div>
+                        <a href="doctors.html" class="view-link">View All</a>
+                    </div>
+
+                    <div class="doctor-list" id="dashboardDoctorList"></div>
+
+                    <div class="doctor-footer">
+                        <span class="available-dot"></span>
+                        Doctors currently available
+                    </div>
+                </div>
+
+            </div>
+
+            <footer class="dashboard-footer">
+                <span>© 2026 CLINICCARE. All rights reserved.</span>
+                <span>Clinic Appointment & Patient Queue Management System</span>
+            </footer>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/clinic-domain.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

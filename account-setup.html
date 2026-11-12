@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Up Account | CLINICCARE</title>
+    <link rel="stylesheet" href="css/signup.css">
+</head>
+<body>
+    <main class="signup-page">
+        <section class="brand-section">
+            <a href="welcome.html" class="logo">
+                <span class="logo-icon">+</span>
+                <span>CLINIC<span class="accent">CARE</span></span>
+            </a>
+            <div class="brand-content">
+                <div class="brand-badge">
+                    <span class="badge-dot"></span>
+                    SECURE ACCOUNT SETUP
+                </div>
+                <h1>Your clinic<br>account starts<br><span>here.</span></h1>
+                <p>Choose a password to finish setting up your CLINICCARE account.</p>
+            </div>
+            <p class="brand-footer">© 2026 ClinicCare. All rights reserved.</p>
+        </section>
+
+        <section class="form-section">
+            <div class="form-container">
+                <a href="login.html" class="back-link">← Back to Login</a>
+                <div class="form-heading">
+                    <div class="mobile-logo"><span class="logo-icon">+</span></div>
+                    <p class="form-tag">ACCOUNT INVITATION</p>
+                    <h2>Set your password</h2>
+                    <p>Use at least 8 characters. Your password is private to your account.</p>
+                </div>
+
+                <form id="accountSetupForm" hidden>
+                    <div class="input-group">
+                        <label for="newPassword">New Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="newPassword" minlength="8" autocomplete="new-password" required>
+                            <button type="button" class="toggle-password" data-target="newPassword">Show</button>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="confirmNewPassword">Confirm Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="confirmNewPassword" minlength="8" autocomplete="new-password" required>
+                            <button type="button" class="toggle-password" data-target="confirmNewPassword">Show</button>
+                        </div>
+                    </div>
+                    <button type="submit" class="signup-submit">Set Password <span>→</span></button>
+                </form>
+
+                <form id="recoveryRequestForm" hidden>
+                    <div class="input-group">
+                        <label for="recoveryEmail">Email Address</label>
+                        <input type="email" id="recoveryEmail" autocomplete="email" placeholder="name@example.com" required>
+                    </div>
+                    <button type="submit" class="signup-submit">Email Me a Setup Link <span>→</span></button>
+                </form>
+
+                <p id="accountSetupMessage" class="signup-message" role="status" aria-live="polite"></p>
+                <div class="login-link">
+                    <p id="accountSetupLoginText">Already completed setup?</p>
+                    <a href="login.html" id="accountSetupLoginLink">Sign in here</a>
+                </div>
+                <div class="security-note">
+                    <span>♧</span>
+                    <p>Passwords are managed securely by Supabase Auth.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/account-setup.js"></script>
+</body>
+</html>

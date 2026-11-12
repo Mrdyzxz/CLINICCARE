@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultations | CLINICCARE</title>
+
+    <link rel="stylesheet" href="css/consultations.css">
+    <script>document.documentElement.style.visibility = "hidden";</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+            <span>CLINICCARE</span>
+        </div>
+
+        <div class="menu-label">MAIN MENU</div>
+
+        <nav class="navigation">
+            <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-chart-pie"></i><span>Dashboard</span></a>
+            <a href="patients.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Patients</span></a>
+            <a href="appointments.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
+            <a href="queue.html" class="nav-link"><i class="fa-solid fa-list-ol"></i><span>Patient Queue</span></a>
+        </nav>
+
+        <div class="menu-label management-label">MANAGEMENT</div>
+        <nav class="navigation">
+            <a href="doctors.html" class="nav-link"><i class="fa-solid fa-user-doctor"></i><span>Doctors</span></a>
+            <a href="departments.html" class="nav-link"><i class="fa-solid fa-hospital"></i><span>Departments</span></a>
+            <a href="consultations.html" class="nav-link active" aria-current="page"><i class="fa-solid fa-stethoscope"></i><span>Consultations</span></a>
+            <a href="reports.html" class="nav-link"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a>
+            <a href="users.html" class="nav-link"><i class="fa-solid fa-user-gear"></i><span>User Management</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card">
+                <div class="help-icon"><i class="fa-solid fa-headset"></i></div>
+                <h4>Need Help?</h4>
+                <p>Contact your system administrator for assistance.</p>
+                <button type="button" class="support-btn">Get Support</button>
+            </div>
+
+            <a href="login.html" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Sign Out</span></a>
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+
+            <div class="breadcrumb">
+                Management / <strong>Consultations</strong>
+            </div>
+
+            <div class="topbar-profile">
+                <div class="profile-avatar">A</div>
+                <div>
+                    <strong>Administrator</strong>
+                    <small>System Admin</small>
+                </div>
+            </div>
+        </header>
+
+        <section class="page-content">
+
+            <!-- PAGE HEADING -->
+            <div class="page-heading">
+                <div>
+                    <p class="eyebrow">PATIENT CARE RECORDS</p>
+                    <h1>Consultations Management</h1>
+                    <p class="subtitle">
+                        Manage patient consultations, diagnoses, treatments, and medical notes.
+                    </p>
+                </div>
+
+                <button class="primary-btn" id="addConsultationBtn">
+                    + New Consultation
+                </button>
+            </div>
+
+            <!-- STATISTICS -->
+            <section class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">▣</div>
+                    <div>
+                        <p>Total Consultations</p>
+                        <h2 id="totalConsultations">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">◷</div>
+                    <div>
+                        <p>In Progress</p>
+                        <h2 id="inProgressConsultations">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div>
+                        <p>Completed</p>
+                        <h2 id="completedConsultations">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">▤</div>
+                    <div>
+                        <p>Today's Consultations</p>
+                        <h2 id="todayConsultations">0</h2>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- CONSULTATIONS TABLE -->
+            <section class="content-card">
+
+                <div class="card-header">
+                    <div>
+                        <h2>Consultation Records</h2>
+                        <p>View and manage patient consultation records.</p>
+                    </div>
+
+                    <button class="secondary-btn" id="exportBtn">
+                        ↓ Export CSV
+                    </button>
+                </div>
+
+                <!-- FILTERS -->
+                <div class="filters">
+
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search patient or consultation ID..."
+                        >
+                    </div>
+
+                    <select id="doctorFilter">
+                        <option value="">All Doctors</option>
+                    </select>
+
+                    <select id="departmentFilter">
+                        <option value="">All Departments</option>
+                    </select>
+
+                    <select id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+
+                </div>
+
+                <!-- TABLE -->
+                <div class="table-container">
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CONSULTATION ID</th>
+                                <th>PATIENT</th>
+                                <th>DOCTOR</th>
+                                <th>DEPARTMENT</th>
+                                <th>DATE</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="consultationTableBody"></tbody>
+                    </table>
+
+                </div>
+
+                <div class="table-footer">
+                    <span id="tableCount">Showing 0 consultations</span>
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- ADD / EDIT CONSULTATION MODAL -->
+<div class="modal-overlay" id="consultationModal">
+
+    <div class="modal large-modal">
+
+        <div class="modal-header">
+            <div>
+                <h2 id="modalTitle">New Consultation</h2>
+                <p>Enter the patient's consultation information.</p>
+            </div>
+
+            <button class="close-btn" id="closeModalBtn">&times;</button>
+        </div>
+
+        <form id="consultationForm">
+
+            <input type="hidden" id="consultationId">
+
+            <div class="form-section">
+                <h3>Patient Information</h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="patientName">Patient Name *</label>
+                        <select id="patientName" required><option value="">Select Patient</option></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="patientId">Patient ID</label>
+                        <input
+                            type="text"
+                            id="patientId"
+                            placeholder="Patient code"
+                            readonly
+                        >
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Consultation Information</h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="doctorName">Assigned Doctor *</label>
+                        <select id="doctorName" required>
+                            <option value="">Select Doctor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="departmentName">Department *</label>
+                        <select id="departmentName" required>
+                            <option value="">Select Department</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="consultationDate">Consultation Date *</label>
+                        <input type="date" id="consultationDate" required>
+                        <small>Consultations currently store a date only; the database has no consultation-time column.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="appointmentId">Appointment (Optional)</label>
+                        <select id="appointmentId"><option value="">No linked appointment</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="queueEntryId">Queue Entry (Optional)</label>
+                        <select id="queueEntryId"><option value="">No linked queue entry</option></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Medical Information</h3>
+
+                <div class="form-group">
+                    <label for="symptoms">Symptoms *</label>
+                    <textarea
+                        id="symptoms"
+                        rows="3"
+                        placeholder="Describe the patient's symptoms..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="diagnosis">Diagnosis</label>
+                    <textarea
+                        id="diagnosis"
+                        rows="3"
+                        placeholder="Enter medical diagnosis..."
+                    ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="treatment">Treatment / Prescription</label>
+                    <textarea
+                        id="treatment"
+                        rows="3"
+                        placeholder="Enter treatment or prescription details..."
+                    ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Additional Medical Notes</label>
+                    <textarea
+                        id="notes"
+                        rows="3"
+                        placeholder="Enter additional consultation notes..."
+                    ></textarea>
+                </div>
+
+            </div>
+
+            <div class="form-section">
+                <h3>Consultation Status</h3>
+
+                <div class="form-group">
+                    <label for="consultationStatus">Status *</label>
+                    <select id="consultationStatus" required>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="cancel-btn" id="cancelModalBtn">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn" id="saveConsultationBtn">
+                    Save Consultation
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- VIEW CONSULTATION MODAL -->
+<div class="modal-overlay" id="viewModal">
+
+    <div class="modal large-modal">
+
+        <div class="modal-header">
+            <div>
+                <h2>Consultation Details</h2>
+                <p>Complete patient consultation record.</p>
+            </div>
+
+            <button class="close-btn" id="closeViewBtn">&times;</button>
+        </div>
+
+        <div id="consultationDetails" class="consultation-details"></div>
+
+        <div class="modal-actions">
+            <button class="cancel-btn" id="closeDetailsBtn">
+                Close
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/consultations.js"></script>
+
+</body>
+</html>

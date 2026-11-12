@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management | CLINICCARE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="css/users.css">
+    <script>document.documentElement.style.visibility = "hidden";</script>
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+            <span>CLINICCARE</span>
+        </div>
+
+        <div class="menu-label">MAIN MENU</div>
+
+        <nav class="navigation">
+            <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-chart-pie"></i><span>Dashboard</span></a>
+            <a href="patients.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Patients</span></a>
+            <a href="appointments.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
+            <a href="queue.html" class="nav-link"><i class="fa-solid fa-list-ol"></i><span>Patient Queue</span></a>
+        </nav>
+
+        <div class="menu-label management-label">MANAGEMENT</div>
+        <nav class="navigation">
+            <a href="doctors.html" class="nav-link"><i class="fa-solid fa-user-doctor"></i><span>Doctors</span></a>
+            <a href="departments.html" class="nav-link"><i class="fa-solid fa-hospital"></i><span>Departments</span></a>
+            <a href="consultations.html" class="nav-link"><i class="fa-solid fa-stethoscope"></i><span>Consultations</span></a>
+            <a href="reports.html" class="nav-link"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a>
+            <a href="users.html" class="nav-link active" aria-current="page"><i class="fa-solid fa-user-gear"></i><span>User Management</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card">
+                <div class="help-icon"><i class="fa-solid fa-headset"></i></div>
+                <h4>Need Help?</h4>
+                <p>Contact support if you need assistance.</p>
+                <button type="button" class="support-btn">Get Support</button>
+            </div>
+
+            <a href="login.html" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Sign Out</span></a>
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <button class="menu-toggle" id="menuToggle">☰</button>
+
+            <div class="breadcrumb">
+                Main Menu / <strong>User Management</strong>
+            </div>
+
+            <div class="topbar-profile">
+                <div>
+                    <strong>Administrator</strong>
+                    <small>System Admin</small>
+                </div>
+                <div class="profile-avatar">A</div>
+            </div>
+
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <section class="page-content">
+
+            <div class="page-heading">
+                <div>
+                    <p class="eyebrow">SYSTEM USER DIRECTORY</p>
+                    <h1>User Management</h1>
+                    <p class="subtitle">
+                        View system accounts and their access status.
+                    </p>
+                    <p class="access-notice" id="userReadOnlyNotice" role="status" hidden>
+                        Read-only access: you can view accounts but cannot invite users or change account access.
+                    </p>
+                </div>
+
+                <button class="primary-btn" id="addUserBtn" hidden>
+                    + Add New User
+                </button>
+            </div>
+
+            <!-- STATISTICS -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">♧</div>
+                    <div>
+                        <p>Total Users</p>
+                        <h2 id="totalUsers">0</h2>
+                        <small>Registered accounts</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div>
+                        <p>Active Users</p>
+                        <h2 id="activeUsers">0</h2>
+                        <small>Currently active</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">⚕</div>
+                    <div>
+                        <p>Admins</p>
+                        <h2 id="adminUsers">0</h2>
+                        <small>Administrator accounts</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">▣</div>
+                    <div>
+                        <p>Receptionists</p>
+                        <h2 id="receptionistUsers">0</h2>
+                        <small>Receptionist accounts</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FILTERS -->
+            <div class="filter-card">
+
+                <div class="filter-heading">
+                    <div>
+                        <h2>System Users</h2>
+                        <p>Search and filter registered accounts.</p>
+                    </div>
+                </div>
+
+                <div class="filter-controls">
+
+                    <div class="form-group search-group">
+                        <label for="searchUser">Search User</label>
+                        <input
+                            type="text"
+                            id="searchUser"
+                            placeholder="Search name, email, phone, or ID..."
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="roleFilter">Role</label>
+                        <select id="roleFilter">
+                            <option value="all">All Roles</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Receptionist">Receptionist</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="statusFilter">Account Status</label>
+                        <select id="statusFilter">
+                            <option value="all">All Status</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                    <button class="secondary-btn" id="resetFiltersBtn">
+                        Reset Filters
+                    </button>
+
+                    <button class="secondary-btn" id="exportUsersBtn" hidden>
+                        ↓ Export CSV
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- USER TABLE -->
+            <div class="content-card">
+
+                <div class="card-header">
+                    <div>
+                        <h2>User Accounts</h2>
+                        <p>Overview of all registered system users.</p>
+                    </div>
+
+                    <span class="record-count" id="recordCount">
+                        0 users
+                    </span>
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>USER ID</th>
+                                <th>USER INFORMATION</th>
+                                <th>AUTH EMAIL</th>
+                                <th>ROLE</th>
+                                <th>STATUS</th>
+                                <th>DATE CREATED</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="usersTableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- USER MODAL -->
+<div class="modal-overlay" id="userModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+            <div>
+                <h2 id="modalTitle">Add New User</h2>
+                <p id="userModalDescription">Invite a user to CLINICCARE with the selected role.</p>
+            </div>
+
+            <button class="close-btn" id="closeModalBtn">&times;</button>
+        </div>
+
+        <form id="userForm">
+
+            <input type="hidden" id="userId">
+
+            <div class="form-grid">
+
+                <div class="form-group full-width">
+                    <label for="userName">Full Name</label>
+                    <input
+                        type="text"
+                        id="userName"
+                        placeholder="Enter full name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="userEmail">Email Address</label>
+                    <input
+                        type="email"
+                        id="userEmail"
+                        placeholder="name@example.com"
+                        autocomplete="email"
+                        required
+                    >
+                    <small class="form-help" id="userEmailHelp">An invitation will be sent to this address. The user sets their own password through Supabase Auth.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="userPhone">Phone Number</label>
+                    <input
+                        type="tel"
+                        id="userPhone"
+                        placeholder="Enter phone number"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="userRole">Account Role</label>
+                    <select id="userRole" required>
+                        <option value="">Select Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="receptionist">Receptionist</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="userStatus">Account Status</label>
+                    <select id="userStatus" required>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <p class="form-help account-security-note">Account invitations and access changes are verified by the secure admin-users Edge Function.</p>
+
+            <div class="modal-actions">
+                <button type="button" class="reset-btn" id="cancelModalBtn">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn" id="saveUserBtn">
+                    Send Invitation
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- VIEW USER MODAL -->
+<div class="modal-overlay" id="viewUserModal">
+
+    <div class="modal view-modal">
+
+        <div class="modal-header">
+            <div>
+                <h2>User Details</h2>
+                <p>Account information and access details.</p>
+            </div>
+
+            <button class="close-btn" id="closeViewModalBtn">&times;</button>
+        </div>
+
+        <div id="userDetailsContent" class="user-details-content"></div>
+
+        <div class="modal-actions">
+            <button class="reset-btn" id="closeViewBtn">Close</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/clinic-domain.js"></script>
+<script src="js/users.js"></script>
+
+</body>
+</html>

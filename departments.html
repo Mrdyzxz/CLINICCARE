@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departments | CLINICCARE</title>
+    <link rel="stylesheet" href="css/departments.css">
+    <script>document.documentElement.style.visibility = "hidden";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+            <span>CLINICCARE</span>
+        </div>
+
+        <div class="menu-label">MAIN MENU</div>
+
+        <nav class="navigation">
+            <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-chart-pie"></i><span>Dashboard</span></a>
+            <a href="patients.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Patients</span></a>
+            <a href="appointments.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i><span>Appointments</span></a>
+            <a href="queue.html" class="nav-link"><i class="fa-solid fa-list-ol"></i><span>Patient Queue</span></a>
+        </nav>
+
+        <div class="menu-label management-label">MANAGEMENT</div>
+        <nav class="navigation">
+            <a href="doctors.html" class="nav-link"><i class="fa-solid fa-user-doctor"></i><span>Doctors</span></a>
+            <a href="departments.html" class="nav-link active" aria-current="page"><i class="fa-solid fa-hospital"></i><span>Departments</span></a>
+            <a href="consultations.html" class="nav-link"><i class="fa-solid fa-stethoscope"></i><span>Consultations</span></a>
+            <a href="reports.html" class="nav-link"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a>
+            <a href="users.html" class="nav-link"><i class="fa-solid fa-user-gear"></i><span>User Management</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card">
+                <div class="help-icon"><i class="fa-solid fa-headset"></i></div>
+                <h4>Need Help?</h4>
+                <p>Contact your system administrator for assistance.</p>
+                <button type="button" class="support-btn">Get Support</button>
+            </div>
+            <a href="login.html" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Sign Out</span></a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div class="breadcrumb">Management / <strong>Departments</strong></div>
+            <div class="topbar-profile">
+                <div class="profile-avatar">A</div>
+                <div>
+                    <strong>Administrator</strong>
+                    <small>System Admin</small>
+                </div>
+            </div>
+        </header>
+
+        <section class="page-content">
+
+            <div class="page-heading">
+                <div>
+                    <p class="eyebrow">CLINIC ORGANIZATION</p>
+                    <h1>Departments Management</h1>
+                    <p class="subtitle">Manage clinic departments and their assigned doctors.</p>
+                </div>
+
+                <button class="primary-btn" id="addDepartmentBtn">
+                    + Add Department
+                </button>
+            </div>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">▦</div>
+                    <div>
+                        <p>Total Departments</p>
+                        <h2 id="totalDepartments">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div>
+                        <p>Active Departments</p>
+                        <h2 id="activeDepartments">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">✚</div>
+                    <div>
+                        <p>Assigned Doctors</p>
+                        <h2 id="assignedDoctors">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">○</div>
+                    <div>
+                        <p>Inactive Departments</p>
+                        <h2 id="inactiveDepartments">0</h2>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-card">
+
+                <div class="card-header">
+                    <div>
+                        <h2>Department Directory</h2>
+                        <p>View and manage all clinic departments.</p>
+                    </div>
+                    <button class="secondary-btn" id="exportBtn">↓ Export CSV</button>
+                </div>
+
+                <div class="filters">
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input type="text" id="searchInput" placeholder="Search department name or ID...">
+                    </div>
+
+                    <select id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>DEPARTMENT ID</th>
+                                <th>DEPARTMENT NAME</th>
+                                <th>DESCRIPTION</th>
+                                <th>ASSIGNED DOCTORS</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="departmentTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <span id="tableCount">Showing 0 departments</span>
+                </div>
+
+            </section>
+
+        </section>
+    </main>
+</div>
+
+<!-- DEPARTMENT MODAL -->
+<div class="modal-overlay" id="departmentModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div>
+                <h2 id="modalTitle">Add Department</h2>
+                <p>Enter the department information below.</p>
+            </div>
+            <button class="close-btn" id="closeModalBtn">&times;</button>
+        </div>
+
+        <form id="departmentForm">
+
+            <input type="hidden" id="departmentId">
+
+            <div class="form-group">
+                <label for="departmentName">Department Name *</label>
+                <input type="text" id="departmentName" placeholder="e.g. General Medicine" required>
+            </div>
+
+            <div class="form-group">
+                <label for="departmentDescription">Description *</label>
+                <textarea id="departmentDescription" rows="3" placeholder="Describe the department..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="departmentDoctors">Assign Doctors</label>
+                <select id="departmentDoctors" multiple>
+                </select>
+                <small>Selecting doctors assigns them through their department relationship. Unselected doctors keep their current assignments.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="departmentStatus">Department Status</label>
+                <select id="departmentStatus">
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="cancel-btn" id="cancelModalBtn">Cancel</button>
+                <button type="submit" class="primary-btn" id="saveDepartmentBtn">Save Department</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="modal-overlay" id="viewModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div>
+                <h2>Department Details</h2>
+                <p>Complete department information.</p>
+            </div>
+            <button class="close-btn" id="closeViewBtn">&times;</button>
+        </div>
+
+        <div id="departmentDetails" class="department-details"></div>
+
+        <div class="modal-actions">
+            <button class="cancel-btn" id="closeDetailsBtn">Close</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/departments.js"></script>
+</body>
+</html>

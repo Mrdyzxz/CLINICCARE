@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | ClinicCare</title>
+
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+    <main class="login-page">
+
+        <!-- LEFT SIDE -->
+        <section class="brand-section">
+
+            <a href="welcome.html" class="logo">
+                <span class="logo-icon">+</span>
+                <span>CLINIC<span class="accent">CARE</span></span>
+            </a>
+
+            <div class="brand-content">
+                <div class="brand-badge">
+                    <span class="badge-dot"></span>
+                    HEALTHCARE MANAGEMENT SYSTEM
+                </div>
+
+                <h1>
+                    Welcome back<br>
+                    to <span>better care.</span>
+                </h1>
+
+                <p>
+                    Your clinic operations, patient records, and
+                    appointments — all in one place.
+                </p>
+
+                <div class="brand-decoration">
+                    <div class="decoration-icon">✚</div>
+                    <div>
+                        <strong>CLINICCARE</strong>
+                        <small>Smarter Healthcare Management</small>
+                    </div>
+                </div>
+            </div>
+
+            <p class="brand-footer">
+                © 2026 ClinicCare. All rights reserved.
+            </p>
+
+        </section>
+
+        <!-- RIGHT SIDE -->
+        <section class="form-section">
+
+            <div class="form-container">
+
+                <a href="welcome.html" class="back-link">
+                    ← Back to Home
+                </a>
+
+                <div class="form-heading">
+                    <div class="mobile-logo">
+                        <span class="logo-icon">+</span>
+                    </div>
+
+                    <p class="form-tag">ACCOUNT ACCESS</p>
+                    <h2>Sign in to your account</h2>
+                    <p>Enter your credentials to access ClinicCare.</p>
+                </div>
+
+                <form id="loginForm">
+
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="name@example.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+
+                        <div class="password-wrapper">
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Enter your password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="toggle-password"
+                            >
+                                Show
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-option">
+                            <input type="checkbox" id="rememberMe">
+                            <span>Remember me</span>
+                        </label>
+
+                        <a href="#" id="forgotPassword">
+                            Forgot password?
+                        </a>
+                    </div>
+
+                    <button type="submit" class="login-submit">
+                        Sign In <span>→</span>
+                    </button>
+
+                    <p id="loginMessage" class="login-message"></p>
+                    <div class="signup-section">
+                    <p>Staff access is invitation-only. Contact the clinic administrator.</p>
+                    </div>
+
+                </form>
+
+                <div class="security-note">
+                    <span>♧</span>
+                    <p>Your account information is kept private and secure.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/login.js"></script>
+
+</body>
+</html>

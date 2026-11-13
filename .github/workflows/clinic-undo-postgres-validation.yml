@@ -1,0 +1,53 @@
+name: Clinic Undo PostgreSQL validation
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/clinic-undo-postgres-validation.yml
+      - supabase/migrations/20261113000000_clinic_undo_transactions.sql
+      - tests/sql/validate-clinic-undo-migration.sh
+  push:
+    paths:
+      - .github/workflows/clinic-undo-postgres-validation.yml
+      - supabase/migrations/20261113000000_clinic_undo_transactions.sql
+      - tests/sql/validate-clinic-undo-migration.sh
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-migration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: postgres
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y postgresql-client
+          psql --version
+
+      - name: Validate migration and preflight scenarios
+        run: bash tests/sql/validate-clinic-undo-migration.sh

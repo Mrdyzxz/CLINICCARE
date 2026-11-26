@@ -22,6 +22,9 @@ feedback.setAttribute("aria-live", "polite");
 feedback.style.cssText = "display:none;margin:14px 0;padding:11px 14px;border-radius:8px;font-size:13px;";
 document.querySelector(".content-card").prepend(feedback);
 
+// DSA: Array
+// Dito ini-store ang consultation records at ang mga patient, doctor,
+// department, appointment, at queue records na kailangan sa page.
 let consultations = [];
 let patients = [];
 let doctors = [];
@@ -71,6 +74,9 @@ function updateStats() {
 }
 
 function renderConsultations() {
+    // DSA: Array
+    // Ginagamit ang filter() at find() para i-filter ang consultations
+    // at hanapin ang linked patient, doctor, department, appointment, o queue record.
     const term = document.getElementById("searchInput").value.trim().toLowerCase();
     const selectedDoctor = document.getElementById("doctorFilter").value;
     const selectedDepartment = document.getElementById("departmentFilter").value;
@@ -196,6 +202,9 @@ function openConsultationModal(item) {
 
 function nextConsultationCode() {
     const year = new Date().getFullYear();
+    // DSA: HashSet
+    // Ang Set ay nagpi-prevent sa duplicate consultation code.
+    // Ang .has() ay mabilis na nagche-check kung ginamit na ang code.
     const used = new Set(consultations.map(item => item.consultation_code));
     for (let i = 1; i <= 9999; i += 1) {
         const code = `CON-${year}-${String(i).padStart(3, "0")}`;

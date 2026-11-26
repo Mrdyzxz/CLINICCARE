@@ -1,4 +1,7 @@
 (function () {
+    // DSA: HashSet
+    // Gumagamit ang Set ng unique page at role values para sa membership checks.
+    // Mas malinaw ang publicPages.has(...) at staffRoles.has(...) kaysa array search.
     const publicPages = new Set(["welcome.html", "login.html", "signup.html", "account-setup.html"]);
     const staffRoles = new Set(["admin", "receptionist"]);
     const currentPage = window.location.pathname.split("/").pop().toLowerCase();

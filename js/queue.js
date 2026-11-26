@@ -20,6 +20,9 @@ let doctors = [];
 let profiles = [];
 let departments = [];
 let appointments = [];
+// DSA: Array at Queue
+// Ini-store ng mga arrays na ito ang clinic records mula sa Supabase.
+// Ang queueEntries ay kinakatawan din sa linked list bilang ClinicFifoQueue.
 let actionInProgress = false;
 const queueOrder = new window.ClinicCareDomain.ClinicFifoQueue();
 
@@ -51,11 +54,10 @@ const dateToday = () => new Date().toISOString().slice(0, 10);
 const createdTime = value => value ? new Date(value).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—";
 
 function orderFIFO(records) {
+    // Pagkatapos mag-load mula sa Supabase, nire-rebuild natin
+    // ang ClinicFifoQueue linked list mula sa current queue records.
     queueOrder.replace(records);
-    return queueOrder.sort((a, b) => {
-        const timeDifference = new Date(a.created_at || 0) - new Date(b.created_at || 0);
-        return timeDifference || String(a.id).localeCompare(String(b.id));
-    });
+    return queueOrder.records;
 }
 
 function updateStats() {
@@ -69,6 +71,9 @@ function renderQueue() {
     const term = document.getElementById("searchInput").value.trim().toLowerCase();
     const selectedStatus = document.getElementById("statusFilter").value;
     const selectedDepartment = document.getElementById("departmentFilter").value;
+    // DSA: Array at Queue
+    // Kinukuha ng filter() ang queue records na pumasa sa search,
+    // status, at department conditions.
     const filtered = queueEntries.filter(item => {
         const patient = patientFor(item.patient_id);
         const doctor = doctorFor(item.doctor_id);
@@ -109,6 +114,8 @@ function renderQueue() {
 async function loadQueue() {
     message("Loading queue records...", "info");
     try {
+        // Kinukuha natin ang queue at mga kaugnay na records mula sa Supabase.
+        // Bawat result ay ginagamit sa dropdown, table, at linked queue list.
         const results = await Promise.all([
             window.clinicSupabase.from("queue_entries").select("*").order("created_at", { ascending: true }),
             window.clinicSupabase.from("patients").select("id, patient_code, full_name"),
@@ -168,6 +175,9 @@ function closeQueueModal() {
 
 function nextQueueNumber() {
     const year = new Date().getFullYear();
+    // DSA: HashSet
+    // .has() ay tumitingin kung may existing queue number na gaya nito.
+    // Nakakatulong itong maiwasan ang pag-reuse ng queue code sa parehong taon.
     const used = new Set(queueEntries.map(item => item.queue_number));
     for (let i = 1; i <= 9999; i += 1) {
         const code = `Q-${year}-${String(i).padStart(3, "0")}`;
@@ -224,6 +234,7 @@ async function changeEntryStatus(entry, status) {
     if (actionInProgress) return;
     actionInProgress = true;
     try {
+        // Inihahanda natin ang queue update na isesave sa Supabase.
         const payload = { status };
         if (status === "In Consultation") payload.called_at = new Date().toISOString();
         if (status === "Waiting") {
@@ -231,10 +242,14 @@ async function changeEntryStatus(entry, status) {
             payload.queue_date = dateToday();
             payload.created_at = new Date().toISOString();
         }
+        // Dito talaga isinasave ang status at timestamp sa queue_entries table.
         const { data, error } = await window.clinicSupabase.from("queue_entries")
             .update(payload).eq("id", entry.id).eq("status", entry.status).select("id").maybeSingle();
         if (error) throw error;
         if (!data) throw new Error("This queue entry has changed or was already handled. Refresh and retry.");
+        // Kapag requeue, nililipat natin ang patient node sa pinakadulo
+        // ng in-memory linked list. Kasunod nito ang reload mula sa Supabase.
+        if (status === "Waiting") queueOrder.moveToEnd(entry.id);
         const loaded = await loadQueue();
         message(loaded ? (status === "Waiting" ? "Patient requeued at the end of the waiting line." : `Queue status changed to ${status}.`) : "Queue status saved, but the latest queue could not be reloaded.", loaded ? "success" : "error");
     } catch (error) {
@@ -249,7 +264,11 @@ async function callNextPatient() {
     if (actionInProgress) return;
     const current = queueEntries.find(item => item.status === "In Consultation");
     if (current) return message("A patient is already marked In Consultation.", "info");
+    // Nirerebuild muna natin ang list para sumunod sa pinakabagong
+    // queue records mula sa Supabase at sa FIFO sorting rules.
     queueOrder.replace(queueEntries);
+    // DSA: Queue - FIFO
+    // Pinipili ang unang Waiting patient; hindi tayo gumagamit ng random selection.
     const next = queueOrder.nextWaiting(dateToday());
     if (!next) return message("There are no waiting patients.", "info");
     await changeEntryStatus(next, "In Consultation");

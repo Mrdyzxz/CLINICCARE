@@ -220,6 +220,9 @@ $$;
 -- This row serializes all tracked writes and Undo requests from one actor.
 -- The row lock is acquired before row-level DML triggers assign sequence
 -- numbers, giving each actor a durable and deterministic LIFO order.
+-- DSA: Stack - LIFO
+-- Ang actor_sequence ang nag-order sa transaction history. Ang mas mataas na sequence
+-- ay nangangahulugang mas bagong transaction na unang pinoproseso sa Undo.
 create table public.clinic_undo_actor_state (
     actor_id uuid primary key,
     last_sequence bigint not null default 0 check (last_sequence >= 0)
@@ -253,6 +256,8 @@ create index clinic_undo_transactions_actor_top_idx
     on public.clinic_undo_transactions (actor_id, actor_sequence desc)
     where is_undone is false;
 
+-- Dito inaayos ang transaction index mula sa newest sequence papunta sa oldest.
+-- Ginagamit ito ng Undo retrieval para mapili ang latest active entry.
 create index clinic_undo_transactions_actor_transaction_idx
     on public.clinic_undo_transactions (
         actor_id, database_transaction_id, entity_type, operation_type, record_id
@@ -589,6 +594,9 @@ begin
         for update;
     end if;
 
+    -- DSA: Stack - Push
+    -- Bawat bagong database change ay tumataas ng actor_sequence,
+    -- kaya ito ang timestamp-style "top" ng undo history.
     update public.clinic_undo_actor_state as actor_state
     set last_sequence = actor_state.last_sequence + 1
     where actor_state.actor_id = v_actor_id
@@ -729,6 +737,9 @@ begin
         raise exception using errcode = '42501', message = 'Active clinic staff access is required.';
     end if;
 
+    -- DSA: Stack - LIFO History
+    -- Ipinapabalik lang ang active transactions na naka-descending sequence.
+    -- Ang function na ito ay history viewer; walang sariling array o stack object sa SQL.
     return query
     select
         undo_item.operation_id,
@@ -788,6 +799,9 @@ begin
     where actor_state.actor_id = v_actor_id
     for update;
 
+    -- DSA: Stack - LIFO Selection
+    -- Hinahanap ang active transaction na may pinakamataas na actor_sequence.
+    -- Ito ang katumbas ng pagkuha sa "top" ng undo stack.
     select undo_item.*
     into v_entry
     from public.clinic_undo_transactions as undo_item
@@ -1266,6 +1280,8 @@ begin
       and context.actor_id = v_actor_id
       and context.operation_id = v_entry.operation_id;
 
+    -- Dito tinatanggal ang latest transaction sa active LIFO history.
+    -- Hindi nire-remove ang row; minamark lang itong is_undone para hindi ito maundo ulit.
     update public.clinic_undo_transactions as undo_item
     set is_undone = true,
         undone_at = clock_timestamp()

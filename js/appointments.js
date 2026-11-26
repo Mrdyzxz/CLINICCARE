@@ -15,6 +15,8 @@ feedback.setAttribute("aria-live", "polite");
 feedback.style.cssText = "display:none;margin:14px 0;padding:11px 14px;border-radius:8px;font-size:13px;";
 document.querySelector(".panel").prepend(feedback);
 
+// DSA: Array
+// Dito ini-store ang appointments at ang mga related patient, doctor, profile, at department records.
 let appointments = [];
 let patients = [];
 let doctors = [];
@@ -82,6 +84,9 @@ function updateStatistics() {
 }
 
 function renderAppointments() {
+    // DSA: Array
+    // Ginagamit ang filter() at find() para i-display at i-lookup
+    // ang appointments at ang kaugnay nilang records.
     const term = document.getElementById("searchInput").value.trim().toLowerCase();
     const selectedStatus = document.getElementById("statusFilter").value;
     const selectedDepartment = document.getElementById("departmentFilter").value;
@@ -197,6 +202,9 @@ function viewAppointment(item) {
 
 function nextAppointmentCode() {
     const year = new Date().getFullYear();
+    // DSA: HashSet
+    // Iniipon sa Set ang mga existing appointment code para mabilis nating makita
+    // kung may duplicate at para makagawa ng unique code.
     const used = new Set(appointments.map(item => item.appointment_code));
     for (let i = 1; i <= 9999; i += 1) {
         const code = `APT-${year}-${String(i).padStart(3, "0")}`;

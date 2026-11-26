@@ -17,6 +17,8 @@ feedback.setAttribute("aria-live", "polite");
 feedback.style.cssText = "display:none;margin:14px 0;padding:11px 14px;border-radius:8px;font-size:13px;";
 document.querySelector(".doctors-panel").prepend(feedback);
 
+// DSA: Array
+// Dito ini-store ang doctor at department records para sa filtering at rendering.
 let doctors = [];
 let departments = [];
 let editingDoctorId = null;
@@ -70,11 +72,16 @@ function updateStats() {
         doctors.filter(doctor => doctor.availability === "Available").length;
     document.getElementById("unavailableDoctors").textContent =
         doctors.filter(doctor => doctor.availability === "Unavailable").length;
+    // DSA: HashSet
+    // Kinukuha ng Set ang unique department IDs na may assigned doctors.
     document.getElementById("departmentCount").textContent =
         new Set(doctors.map(doctor => doctor.department_id).filter(Boolean)).size;
 }
 
 function renderDoctors() {
+    // DSA: Array
+    // Ang filter() ay pumipili ng doctors na tumutugma sa search,
+    // department, at availability filters.
     const term = document.getElementById("searchInput").value.trim().toLowerCase();
     const selectedDepartment = document.getElementById("departmentFilter").value;
     const selectedAvailability = document.getElementById("availabilityFilter").value;
@@ -187,6 +194,8 @@ function openViewModal(doctor) {
 
 function generateDoctorCode() {
     const year = new Date().getFullYear();
+    // DSA: HashSet
+    // Ginagamit ang Set para i-check kung may duplicate doctor code.
     const used = new Set(doctors.map(doctor => doctor.doctor_code));
     for (let i = 1; i <= 999; i += 1) {
         const code = `DOC-${year}-${String(i).padStart(3, "0")}`;

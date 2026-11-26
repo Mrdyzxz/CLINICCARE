@@ -18,6 +18,8 @@ feedback.setAttribute("aria-live", "polite");
 feedback.style.cssText = "display:none;margin:14px 0;padding:11px 14px;border-radius:8px;font-size:13px;";
 document.querySelector(".content-card").prepend(feedback);
 
+// DSA: Array
+// Dito ini-store ang department at doctor records na ginagamit sa directory at assignment UI.
 let departments = [];
 let doctors = [];
 let profiles = [];
@@ -46,6 +48,9 @@ function doctorLabel(doctor) {
 }
 
 function renderDepartments() {
+    // DSA: Array
+    // Ginagamit ang filter() at find-style lookup helper para pumili
+    // ng departments at bilangin ang assigned doctors.
     const term = document.getElementById("searchInput").value.trim().toLowerCase();
     const status = document.getElementById("statusFilter").value;
     const filtered = departments.filter(department =>
@@ -89,6 +94,8 @@ function renderDepartments() {
         departments.filter(item => item.status === "Active").length;
     document.getElementById("inactiveDepartments").textContent =
         departments.filter(item => item.status === "Inactive").length;
+    // DSA: HashSet
+    // Kinukuha ng Set ang unique doctor IDs na naka-assign sa department.
     document.getElementById("assignedDoctors").textContent =
         new Set(doctors.filter(doctor => doctor.department_id).map(doctor => doctor.id)).size;
 }
@@ -130,6 +137,9 @@ function openDepartmentModal(department) {
     departmentName.value = department?.name || "";
     departmentDescription.value = department?.description || "";
     departmentStatus.value = department?.status || "Active";
+    // DSA: HashSet
+    // Ginagamit ang assigned Set bilang membership check sa modal:
+    // .has(option.value) ang nagpapakita kung naka-check ang doctor.
     const assigned = new Set(department ? assignedDoctors(department).map(doctor => doctor.id) : []);
     Array.from(departmentDoctors.options).forEach(option => { option.selected = assigned.has(option.value); });
     departmentModal.classList.add("show");

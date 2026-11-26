@@ -17,6 +17,8 @@ feedback.setAttribute("aria-live", "polite");
 feedback.style.cssText = "display:none;margin:14px 0;padding:11px 14px;border-radius:8px;font-size:13px;";
 document.querySelector(".filter-card").appendChild(feedback);
 
+// DSA: Array
+// Dito ini-store ang source at generated report rows na inaayos at ine-export.
 let patientRows = [];
 let appointmentRows = [];
 let consultationRows = [];
@@ -43,6 +45,9 @@ function dateValue(value) {
 }
 
 function getFiltered(source) {
+    // DSA: Array
+    // Ginagamit ang filter() para pumili lang ng report rows
+    // na tugma sa department at date range.
     return source.filter(row => {
         const selectedDepartment = departmentFilter.value;
         const matchesDepartment = row.type === "Patient" || selectedDepartment === "all" ||
@@ -65,6 +70,8 @@ function buildSelectedRows(type, sets) {
     if (type === "patients") return sets.patients;
     if (type === "appointments") return sets.appointments;
     if (type === "consultations") return sets.consultations;
+    // DSA: Array
+    // Pinagsasama at sine-sort ang selected report rows.
     return [...sets.patients, ...sets.appointments, ...sets.consultations]
         .sort((a, b) => dateValue(b.report_date).localeCompare(dateValue(a.report_date)));
 }
@@ -194,6 +201,9 @@ async function loadReportData() {
         const appointments = results[1].data || [];
         const consultations = results[2].data || [];
         departments = results[3].data || [];
+        // DSA: HashMap
+        // Ang Map ay key-to-value lookup; gamit ang department o patient ID
+        // mabilis nating nakukuha ang pangalan para sa report row.
         const departmentMap = new Map(departments.map(item => [item.id, item.name]));
         const patientMap = new Map(patients.map(item => [item.id, item.full_name]));
         const doctorResult = await window.clinicSupabase.from("doctors").select("id, doctor_code, full_name, profile_id");
@@ -201,9 +211,14 @@ async function loadReportData() {
         const doctors = doctorResult.data || [];
         const profilesResult = await window.clinicSupabase.from("profiles").select("id, full_name, role").eq("role", "doctor");
         if (profilesResult.error) throw profilesResult.error;
+        // DSA: HashMap
+        // Doctor ID ang key; ang profile name o doctor code ang value.
         const doctorProfiles = new Map((profilesResult.data || []).map(item => [item.id, item.full_name]));
         const doctorMap = new Map(doctors.map(item => [item.id, item.full_name || doctorProfiles.get(item.profile_id) || item.doctor_code]));
 
+        // DSA: HashMap
+        // Ginagamit ang get() sa report generation para i-resolve ang pangalan
+        // ng patient, doctor, at department mula sa kanilang ID.
         patientRows = patients.map(item => ({
             id: item.id, patient_code: item.patient_code, patient: item.full_name,
             report_date: dateValue(item.created_at), type: "Patient", doctor: "",

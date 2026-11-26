@@ -1,5 +1,8 @@
 const dashboardDate = document.getElementById("currentDate");
 const dashboardFeedback = document.getElementById("dashboardDataMessage");
+// DSA: Array-backed collection
+// Ang ClinicRecordList ay nagta-taglay ng Array para sa mga loaded dashboard records.
+// Supabase pa rin ang source of truth; ito ay in-memory view collection lamang.
 const dashboardCollections = new window.ClinicCareDomain.ClinicRecordList();
 
 function localDateKey(date = new Date()) {
@@ -48,6 +51,8 @@ function showCountError(id, error) {
 }
 
 function appointmentName(appointment, patientsById) {
+    // DSA: HashMap
+    // Ginagamit ang get() para mabilis kunin ang patient record gamit ang ID.
     return patientsById.get(appointment.patient_id)?.full_name || "Patient unavailable";
 }
 
@@ -67,6 +72,8 @@ function appointmentDateTime(appointment) {
 }
 
 function doctorName(doctor, profilesById) {
+    // DSA: HashMap
+    // Ang get() ay tumitingin sa profile Map kapag kulang ang direct doctor name.
     return doctor?.full_name || profilesById.get(doctor?.profile_id)?.full_name || doctor?.doctor_code || "Doctor unavailable";
 }
 
@@ -98,6 +105,9 @@ function renderAppointments(appointments, patientsById, doctorsById, profilesByI
 }
 
 function renderQueue(queueEntries, patientsById, departmentsById) {
+    // DSA: Array at Queue
+    // Ginagamit ang find(), filter(), sort(), at slice() para makuha
+    // at limitahan ang waiting-patient display gamit ang FIFO order.
     const nowServing = queueEntries.find(entry => entry.status === "In Consultation");
     document.getElementById("dashboardNowServing").textContent = nowServing?.queue_number || "—";
 
@@ -134,6 +144,9 @@ function renderQueue(queueEntries, patientsById, departmentsById) {
 }
 
 function renderActivities(patients, appointments, consultations, patientsById, doctorsById, profilesById) {
+    // DSA: Array
+    // Pinagsasama at sine-sort ang array ng recent activities.
+    // filter() ang nag-aalis ng records na walang date.
     const activities = [
         ...patients.map(record => ({
             date: record.created_at,
@@ -269,11 +282,15 @@ async function loadDashboard() {
 
     const rows = listResults.map(result => result.data || []);
     const [appointments, patients, doctors, profiles, departments, queueEntries, consultations] = rows;
+    // DSA: HashSet
+    // Kinokolekta ng Set ang unique patient IDs mula sa appointments, queue, at consultations.
     const patientIds = [...new Set([
         ...appointments.map(record => record.patient_id),
         ...queueEntries.map(record => record.patient_id),
         ...consultations.map(record => record.patient_id)
     ].filter(Boolean))];
+    // DSA: HashSet
+    // Ginagamit ito sa membership check para malaman kung may kulang na patient record.
     const loadedPatientIds = new Set(patients.map(patient => patient.id));
     const missingPatientIds = patientIds.filter(id => !loadedPatientIds.has(id));
     if (missingPatientIds.length) {
@@ -289,6 +306,9 @@ async function loadDashboard() {
         }
     }
     dashboardCollections.replace(appointments);
+    // DSA: HashMap
+    // Bawat Map ay gumagamit ng unique ID bilang key at buong record/profile
+    // bilang value para mabilis at direktang ma-resolve ang related names.
     const patientsById = new Map(patients.map(patient => [patient.id, patient]));
     const doctorsById = new Map(doctors.map(doctor => [doctor.id, doctor]));
     const profilesById = new Map(profiles.map(profile => [profile.id, profile]));

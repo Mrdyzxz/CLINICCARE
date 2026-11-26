@@ -21,6 +21,8 @@ feedback.setAttribute("aria-live", "polite");
 feedback.style.cssText = "display:none;margin:14px 0;padding:11px 14px;border-radius:8px;font-size:13px;";
 document.querySelector(".content-card").prepend(feedback);
 
+// DSA: Array
+// Dito ini-store ang mga user/profile records na nire-render sa user management page.
 let users = [];
 let saving = false;
 let canManageUsers = false;
@@ -59,6 +61,9 @@ function updateUserAccessControls() {
 }
 
 function filteredUsers() {
+    // DSA: Array
+    // Ginagamit ang directory search at filter() para pumili
+    // ng user records na tugma sa role at status.
     const term = document.getElementById("searchUser").value.trim();
     const role = document.getElementById("roleFilter").value.toLowerCase();
     const status = document.getElementById("statusFilter").value;

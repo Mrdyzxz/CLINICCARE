@@ -28,6 +28,8 @@ const patientPhone = document.getElementById("patientPhone");
 const patientEmail = document.getElementById("patientEmail");
 const patientAddress = document.getElementById("patientAddress");
 
+// DSA: Array
+// Dito ini-store ang mga patient records na nire-render at sine-search sa table.
 let patients = [];
 let editingPatientId = null;
 let isLoading = false;
@@ -121,6 +123,9 @@ function createActionButton(action, patientId, title, iconClass, actionClass) {
 }
 
 function renderPatients() {
+    // DSA: Array
+    // Ginagamit ang filter() para makuha ang patients na tumutugma
+    // sa search, status, at gender filters.
     const searchTerm = searchInput.value.trim().toLowerCase();
     const selectedStatus = statusFilter.value.toLowerCase();
     const selectedGender = genderFilter.value.toLowerCase();
@@ -337,6 +342,9 @@ async function generatePatientCode() {
 
     if (error) throw error;
 
+    // DSA: HashSet
+    // Ang Set ay nagtatago lang ng unique patient sequence numbers.
+    // Ito ang ginagamit para maiwasan ang pag-reuse ng CC-YYYY-### code.
     const usedNumbers = new Set((data || []).map(patient => {
         const match = String(patient.patient_code || "").match(
             new RegExp(`^CC-${year}-(\\d+)$`)
